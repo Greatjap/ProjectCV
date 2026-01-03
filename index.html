@@ -123,28 +123,36 @@
         }
 
         /* Responsividade */
-        @media (max-width: 1024px) {
-            main { margin-right: 300px; }
-            df-messenger { width: 300px; }
-        }
-
         @media (max-width: 768px) {
             main {
                 margin-right: 0;
                 padding: 40px 20px;
                 text-align: center;
             }
-            .card { margin: 40px auto; }
-            h1 { font-size: 2.2rem; }
-            
+
+            .card { margin: 0 auto; text-align: left; }
+
             df-messenger {
-                width: 100%;
-                height: 70%; /* Não ocupa a tela toda para não parecer erro */
-                top: auto;
+                top: auto; 
+                width: auto;
                 border-left: none;
-                border-top: 1px solid #dadce0;
-                border-radius: 20px 20px 0 0;
+                /* Espaçamento do botão no canto */
+                --df-messenger-chat-window-height: 70vh;
+                --df-messenger-chat-window-width: 90vw;
             }
+
+            /* Efeito de Pulsação no Botão do Chat */
+            df-messenger::part(button) {
+                animation: pulse-blue 2s infinite;
+                border-radius: 50%;
+                box-shadow: 0 0 0 0 rgba(26, 115, 232, 0.7);
+            }
+        }
+
+        @keyframes pulse-blue {
+            0% { box-shadow: 0 0 0 0 rgba(26, 115, 232, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(26, 115, 232, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(26, 115, 232, 0); }
         }
     </style>
 </head>
