@@ -3,90 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV Project - Painel de Carreira</title>
+    <title>CV Project - Assistente de Voz</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/themes/df-messenger-default.css">
     <script src="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js"></script>
 
     <style>
-        /* Estilos Gerais */
         body {
             font-family: 'Google Sans', sans-serif;
             margin: 0;
-            padding: 0;
             background-color: #f8f9fa;
-            color: #202124;
         }
 
         main {
             padding: 40px;
-            max-width: 800px; /* Centralizado e com largura máxima */
+            max-width: 800px;
             margin: 0 auto;
-            box-sizing: border-box;
         }
 
-        header {
-            border-bottom: 1px solid #dadce0;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-        }
+        h1 { color: #1a73e8; }
 
-        header strong {
-            color: #5f6368;
-            font-size: 1.2rem;
-        }
-
-        h1 {
-            color: #1a73e8;
-            font-size: 2.5rem;
-        }
-
-        .card {
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-
-        /* CONFIGURAÇÃO DO BOTÃO DO CHAT */
+        /* Estilização do Messenger V2 */
         df-messenger {
             z-index: 999;
             position: fixed;
             bottom: 24px;
             right: 24px;
-            /* Variáveis de estilo do Dialogflow */
-            --df-messenger-font-family: 'Google Sans', sans-serif;
+            
+            /* Customização de Cores */
             --df-messenger-chat-background: #f3f6fc;
-            --df-messenger-message-user-background: #d3e3fd;
-            --df-messenger-message-bot-background: #fff;
-            --df-messenger-chat-window-height: 500px;
-            --df-messenger-chat-window-width: 370px;
+            --df-messenger-font-family: 'Google Sans', sans-serif;
         }
     </style>
 </head>
 <body>
 
     <main>
-        <header>
-            <strong>CV Project</strong>
-        </header>
-
+        <header><strong>CV Project</strong></header>
         <section>
-            <h1>Painel de Orientação</h1>
-            <p>Utilize o assistente no canto inferior para tirar dúvidas sobre profissões e currículos.</p>
-            
-            <div class="card">
-                <h3>Instruções de Uso</h3>
-                <ul>
-                    <li>Responda com sinceridade.</li>
-                    <li>Peça dicas de habilidades para o seu currículo.</li>
-                    <li>O assistente está disponível 24/7.</li>
-                </ul>
-            </div>
+            <h1>Painel com Suporte a Voz</h1>
+            <p>Clique no balão azul e utilize o <strong>ícone de microfone</strong> para falar.</p>
         </section>
     </main>
 
@@ -94,18 +53,24 @@
       location="us-east1"
       project-id="cv-project-483216"
       agent-id="a19ba7a3-3a8a-496a-839b-d8ce61c5fd73"
-      language-code="pt-br"
-      max-query-length="-1">
+      language-code="pt-br">
       <df-messenger-chat-bubble
-        chat-title="CV Project">
-      </df-messenger-chat-bubble>
+        chat-title="Assistente Virtual"
+        allow-mic="true"> </df-messenger-chat-bubble>
     </df-messenger>
 
     <script>
-        window.addEventListener('df-messenger-loaded', () => {
-            // Se quiser que o chat abra sozinho após 1 segundo, use:
-            // setTimeout(() => { document.querySelector('df-messenger').showChat(); }, 1000);
-        });
+      // Script para forçar a fala (opcional, caso o bot não fale sozinho)
+      const dfMessenger = document.querySelector('df-messenger');
+      dfMessenger.addEventListener('df-response-received', (event) => {
+        const message = event.detail.response.queryResult.fulfillmentText;
+        if (message) {
+          const synth = window.speechSynthesis;
+          const utterance = new SpeechSynthesisUtterance(message);
+          utterance.lang = 'pt-BR';
+          synth.speak(utterance);
+        }
+      });
     </script>
 
 </body>
