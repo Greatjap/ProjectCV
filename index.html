@@ -106,21 +106,6 @@
             margin-right: 15px;
         }
 
-        /* Estilização do Agente (Barra Lateral) */
-        df-messenger {
-            z-index: 999;
-            position: fixed;
-            --df-messenger-font-family: 'Google Sans', sans-serif;
-            --df-messenger-chat-background: #ffffff;
-            --df-messenger-message-user-background: #e8f0fe;
-            --df-messenger-message-bot-background: #f1f3f4;
-            bottom: 0;
-            right: 0;
-            top: 0;
-            width: var(--sidebar-width);
-            border-left: 1px solid #dadce0;
-            box-shadow: -4px 0 15px rgba(0,0,0,0.05);
-        }
 
         /* Responsividade */
         @media (max-width: 768px) {
@@ -179,17 +164,29 @@
         </section>
     </main>
 
-    <df-messenger
-      location="us-east1"
-      project-id="cv-project-483216"
-      agent-id="a19ba7a3-3a8a-496a-839b-d8ce61c5fd73"
-      language-code="pt-br"
-      max-query-length="-1"
-      storage-option="none">
-      <df-messenger-chat
-        chat-title="Assistente de Carreira CV Project">
-      </df-messenger-chat>
-    </df-messenger>
+<df-messenger
+  location="us-east1"
+  project-id="cv-project-483216"
+  agent-id="a19ba7a3-3a8a-496a-839b-d8ce61c5fd73"
+  language-code="pt-br"
+  max-query-length="-1">
+  <df-messenger-chat-bubble
+    chat-title="CV Project">
+  </df-messenger-chat-bubble>
+</df-messenger>
+<style>
+  df-messenger {
+    z-index: 999;
+    position: fixed;
+    --df-messenger-font-color: #000;
+    --df-messenger-font-family: Google Sans;
+    --df-messenger-chat-background: #f3f6fc;
+    --df-messenger-message-user-background: #d3e3fd;
+    --df-messenger-message-bot-background: #fff;
+    bottom: 16px;
+    right: 16px;
+  }
+</style>
 
     <script>
         window.addEventListener('DOMContentLoaded', () => {
