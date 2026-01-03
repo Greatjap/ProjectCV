@@ -3,36 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV Project - Assistente de Voz</title>
+    <title>CV Project - Painel de Carreira</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/themes/df-messenger-default.css">
-    <script src="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v2/df-messenger.js"></script>
+    <script src="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js"></script>
 
     <style>
+        :root {
+            --primary-color: #1a73e8;
+            --bg-color: #f8f9fa;
+            --text-main: #202124;
+            --text-secondary: #5f6368;
+            --card-shadow: 0 1px 3px rgba(60,64,67, 0.3), 0 4px 8px 3px rgba(60,64,67, 0.15);
+            --sidebar-width: 380px;
+        }
+
         body {
             font-family: 'Google Sans', sans-serif;
             margin: 0;
-            background-color: #f8f9fa;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
         }
 
+        /* Área Principal */
         main {
-            padding: 40px;
-            max-width: 800px;
-            margin: 0 auto;
+            flex: 1;
+            margin-right: var(--sidebar-width);
+            padding: 60px 5%;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
         }
 
-        h1 { color: #1a73e8; }
+        header {
+            margin-bottom: 48px;
+        }
 
+        header strong {
+            color: var(--primary-color);
+            font-size: 1.4rem;
+            letter-spacing: -0.5px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 10px 0 20px 0;
+            color: #1a1f36;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        /* Cartão de Instruções */
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            margin-top: 40px;
+            box-shadow: 0 1px 2px 0 rgba(60,64,67, .3), 0 1px 3px 1px rgba(60,64,67, .15);
+            max-width: 550px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .card li {
+            padding: 12px 0;
+            border-bottom: 1px solid #f1f3f4;
+            display: flex;
+            align-items: center;
+        }
+
+        .card li:last-child { border-bottom: none; }
+
+        .card li::before {
+            content: "✓";
+            color: #34a853;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+
+        /* Estilização do Agente (Barra Lateral) */
         df-messenger {
             z-index: 999;
             position: fixed;
-            bottom: 24px;
-            right: 24px;
-            --df-messenger-chat-background: #f3f6fc;
             --df-messenger-font-family: 'Google Sans', sans-serif;
+            --df-messenger-chat-background: #ffffff;
+            --df-messenger-message-user-background: #e8f0fe;
+            --df-messenger-message-bot-background: #f1f3f4;
+            bottom: 0;
+            right: 0;
+            top: 0;
+            width: var(--sidebar-width);
+            border-left: 1px solid #dadce0;
+            box-shadow: -4px 0 15px rgba(0,0,0,0.05);
+        }
+
+        /* Responsividade */
+        @media (max-width: 1024px) {
+            main { margin-right: 300px; }
+            df-messenger { width: 300px; }
+        }
+
+        @media (max-width: 768px) {
+            main {
+                margin-right: 0;
+                padding: 40px 20px;
+                text-align: center;
+            }
+            .card { margin: 40px auto; }
+            h1 { font-size: 2.2rem; }
+            
+            df-messenger {
+                width: 100%;
+                height: 70%; /* Não ocupa a tela toda para não parecer erro */
+                top: auto;
+                border-left: none;
+                border-top: 1px solid #dadce0;
+                border-radius: 20px 20px 0 0;
+            }
         }
     </style>
 </head>
@@ -45,14 +157,15 @@
 
         <section>
             <h1>Painel de Orientação</h1>
-            <p>Utilize o assistente ao lado para tirar dúvidas sobre profissões, currículos e o mercado de trabalho.</p>
+            <p class="subtitle">Sua jornada profissional começa aqui. Use nossa inteligência artificial para construir um futuro brilhante.</p>
             
             <div class="card">
-                <h3>Instruções de Uso</h3>
+                <h3><span>💡</span> Como começar</h3>
                 <ul>
-                    <li>Responda com sinceridade.</li>
-                    <li>Peça dicas de habilidades para o seu currículo.</li>
-                    <li>O assistente está disponível 24/7.</li>
+                    <li>Peça uma análise do seu objetivo de carreira.</li>
+                    <li>Descubra quais habilidades faltam no seu currículo.</li>
+                    <li>Simule perguntas de entrevista em tempo real.</li>
+                    <li>O suporte funciona em tempo real, 24 horas por dia.</li>
                 </ul>
             </div>
         </section>
@@ -62,41 +175,24 @@
       location="us-east1"
       project-id="cv-project-483216"
       agent-id="a19ba7a3-3a8a-496a-839b-d8ce61c5fd73"
-      language-code="pt-br">
-      <df-messenger-chat-bubble
-        chat-title="Assistente Virtual"
-        allow-mic="all"> </df-messenger-chat-bubble>
+      language-code="pt-br"
+      max-query-length="-1"
+      storage-option="none">
+      <df-messenger-chat
+        chat-title="Assistente de Carreira CV Project">
+      </df-messenger-chat>
     </df-messenger>
 
     <script>
-      // 1. LIMPAR SESSÃO AO CARREGAR (Começa do zero)
-      // O Dialogflow armazena a sessão no SessionStorage. Removendo isso, o bot gera um novo ID.
-      window.addEventListener('load', () => {
-          window.sessionStorage.clear();
-      });
-
-      const dfMessenger = document.querySelector('df-messenger');
-
-      // 2. SCRIPT DE VOZ (Bot fala o que escreve)
-      dfMessenger.addEventListener('df-response-received', (event) => {
-        // Tenta pegar o texto da resposta (ajustado para o formato da V2)
-        const messages = event.detail.response.queryResult.fulfillmentMessages;
-        if (messages && messages.length > 0) {
-            const text = messages[0].text.text[0];
-            const synth = window.speechSynthesis;
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'pt-BR';
-            synth.speak(utterance);
-        }
-      });
-
-      // 3. EVENTO DE BOAS-VINDAS (Opcional)
-      dfMessenger.addEventListener('df-messenger-loaded', () => {
-          // Se quiser que ele comece falando algo:
-          // dfMessenger.renderCustomText('Olá! Em que posso ajudar hoje?');
-      });
+        window.addEventListener('DOMContentLoaded', () => {
+            const dfMessenger = document.querySelector('df-messenger');
+            
+            dfMessenger.addEventListener('df-messenger-loaded', () => {
+                // Opcional: Enviar um evento de boas-vindas personalizado
+                // dfMessenger.renderCustomText('Olá! Pronto para transformar sua carreira hoje?');
+            });
+        });
     </script>
-    
+
 </body>
 </html>
-
