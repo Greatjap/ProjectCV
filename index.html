@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/themes/df-messenger-default.css">
-    <script src="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js"></script>
+    <script src="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v2/df-messenger.js"></script>
 
     <style>
         body {
@@ -26,14 +26,11 @@
 
         h1 { color: #1a73e8; }
 
-        /* Estilização do Messenger V2 */
         df-messenger {
             z-index: 999;
             position: fixed;
             bottom: 24px;
             right: 24px;
-            
-            /* Customização de Cores */
             --df-messenger-chat-background: #f3f6fc;
             --df-messenger-font-family: 'Google Sans', sans-serif;
         }
@@ -42,22 +39,10 @@
 <body>
 
     <main>
-        <header>
-            <strong>CV Project</strong>
-        </header>
-
+        <header><strong>CV Project</strong></header>
         <section>
             <h1>Painel de Orientação</h1>
-            <p>Utilize o assistente ao lado para tirar dúvidas sobre profissões, currículos e o mercado de trabalho.</p>
-            
-            <div class="card">
-                <h3>Instruções de Uso</h3>
-                <ul>
-                    <li>Responda com sinceridade.</li>
-                    <li>Peça dicas de habilidades para o seu currículo.</li>
-                    <li>O assistente está disponível 24/7.</li>
-                </ul>
-            </div>
+            <p>A conversa será reiniciada toda vez que você atualizar a página.</p>
         </section>
     </main>
 
@@ -68,36 +53,37 @@
       language-code="pt-br">
       <df-messenger-chat-bubble
         chat-title="Assistente Virtual"
-        allow-mic="true"> </df-messenger-chat-bubble>
+        allow-mic="all"> </df-messenger-chat-bubble>
     </df-messenger>
 
     <script>
-      // Script para forçar a fala (opcional, caso o bot não fale sozinho)
+      // 1. LIMPAR SESSÃO AO CARREGAR (Começa do zero)
+      // O Dialogflow armazena a sessão no SessionStorage. Removendo isso, o bot gera um novo ID.
+      window.addEventListener('load', () => {
+          window.sessionStorage.clear();
+      });
+
       const dfMessenger = document.querySelector('df-messenger');
+
+      // 2. SCRIPT DE VOZ (Bot fala o que escreve)
       dfMessenger.addEventListener('df-response-received', (event) => {
-        const message = event.detail.response.queryResult.fulfillmentText;
-        if (message) {
-          const synth = window.speechSynthesis;
-          const utterance = new SpeechSynthesisUtterance(message);
-          utterance.lang = 'pt-BR';
-          synth.speak(utterance);
+        // Tenta pegar o texto da resposta (ajustado para o formato da V2)
+        const messages = event.detail.response.queryResult.fulfillmentMessages;
+        if (messages && messages.length > 0) {
+            const text = messages[0].text.text[0];
+            const synth = window.speechSynthesis;
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'pt-BR';
+            synth.speak(utterance);
         }
       });
-        // Opcional: Garante que o histórico visual seja limpo no carregamento
-        window.addEventListener('DOMContentLoaded', () => {
-            const dfMessenger = document.querySelector('df-messenger');
-            
-            // Se você quiser que o bot mande um "Oi" automático via evento:
-            dfMessenger.addEventListener('df-messenger-loaded', () => {
-                // dfMessenger.renderCustomText('Olá! Como posso ajudar você hoje?'); 
-                // Ou disparar um evento customizado do Dialogflow:
-                // dfMessenger.triggerCustomEvent('WELCOME');
-            });
-        });
+
+      // 3. EVENTO DE BOAS-VINDAS (Opcional)
+      dfMessenger.addEventListener('df-messenger-loaded', () => {
+          // Se quiser que ele comece falando algo:
+          // dfMessenger.renderCustomText('Olá! Em que posso ajudar hoje?');
+      });
     </script>
     
 </body>
 </html>
-
-
-
