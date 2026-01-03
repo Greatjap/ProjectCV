@@ -85,6 +85,21 @@
       });
     </script>
 
+    <script>
+        // Opcional: Garante que o histórico visual seja limpo no carregamento
+        window.addEventListener('DOMContentLoaded', () => {
+            const dfMessenger = document.querySelector('df-messenger');
+            
+            // Se você quiser que o bot mande um "Oi" automático via evento:
+            dfMessenger.addEventListener('df-messenger-loaded', () => {
+                // dfMessenger.renderCustomText('Olá! Como posso ajudar você hoje?'); 
+                // Ou disparar um evento customizado do Dialogflow:
+                // dfMessenger.triggerCustomEvent('WELCOME');
+            });
+        });
+    </script>
+    
 </body>
 </html>
+
 
