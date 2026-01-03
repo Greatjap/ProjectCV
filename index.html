@@ -113,27 +113,24 @@
       project-id="cv-project-483216"
       agent-id="a19ba7a3-3a8a-496a-839b-d8ce61c5fd73"
       language-code="pt-br"
-      max-query-length="-1"
-      storage-option="none">
+      max-query-length="-1">
       <df-messenger-chat-bubble
         chat-title="CV Project">
       </df-messenger-chat-bubble>
     </df-messenger>
-<style>
-  df-messenger {
-    z-index: 999;
-    position: fixed;
-    --df-messenger-font-color: #000;
-    --df-messenger-font-family: Google Sans;
-    --df-messenger-chat-background: #f3f6fc;
-    --df-messenger-message-user-background: #d3e3fd;
-    --df-messenger-message-bot-background: #fff;
-    bottom: 0;
-    right: 0;
-    top: 0;
-    width: 350px;
-  }
-</style>
+    <style>
+      df-messenger {
+        z-index: 999;
+        position: fixed;
+        --df-messenger-font-color: #000;
+        --df-messenger-font-family: Google Sans;
+        --df-messenger-chat-background: #f3f6fc;
+        --df-messenger-message-user-background: #d3e3fd;
+        --df-messenger-message-bot-background: #fff;
+        bottom: 16px;
+        right: 16px;
+      }
+    </style>
     <script>
         // Opcional: Garante que o histórico visual seja limpo no carregamento
         window.addEventListener('DOMContentLoaded', () => {
@@ -151,4 +148,5 @@
 </body>
 
 </html>
+
 
